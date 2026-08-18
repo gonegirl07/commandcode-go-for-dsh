@@ -22,6 +22,8 @@ dsh plugin --profile web add github:gonegirl07/commandcode-go-for-dsh
 
 Restart the app after install (`dsh --profile tui` or `dsh web`). Refresh the browser if Web was already open.
 
+`dsh web` listens on `127.0.0.1` only. Other LAN devices cannot open it unless you SSH-tunnel or bind a specific LAN IP (not `0.0.0.0` — DSH rejects that). LAN notes live in the [Ubuntu install guide](https://github.com/gonegirl07/deepseek-harness-ubuntu).
+
 ## Auth
 
 A `user_...` key from [Command Code settings](https://commandcode.ai/settings). Never commit it.
