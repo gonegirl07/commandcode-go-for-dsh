@@ -1,0 +1,6 @@
+# Mount the Command Code Go adapter and /cc-usage command on any profile
+# that includes this bundle (web, headless, or tui).
+- insert:
+    - id: llm-commandcode
+      name: commandcode-go-for-dsh
+      inject: [llm]

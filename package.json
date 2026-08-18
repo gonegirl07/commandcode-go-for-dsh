@@ -1,0 +1,48 @@
+{
+  "name": "commandcode-go-for-dsh",
+  "version": "0.1.0",
+  "description": "Command Code Go plan provider for DeepSeek Harness, including /cc-usage.",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gonegirl07/commandcode-go-for-dsh.git"
+  },
+  "homepage": "https://github.com/gonegirl07/commandcode-go-for-dsh#readme",
+  "bugs": {
+    "url": "https://github.com/gonegirl07/commandcode-go-for-dsh/issues"
+  },
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "commandcode",
+    "dsh"
+  ],
+  "exports": {
+    ".": "./lib/index.js"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/dsh-commands": ">=0.1.0-rc.6",
+    "@deepseek-ai/dsh-credentials": ">=0.1.0-rc.6",
+    "@deepseek-ai/dsh-launch-environment": ">=0.1.0-rc.6",
+    "@deepseek-ai/dsh-llm": ">=0.1.0-rc.6"
+  }
+}
