@@ -1,7 +1,7 @@
 {
   "name": "commandcode-go-for-dsh",
   "version": "0.1.2",
-  "description": "Command Code Go plan provider for DeepSeek Harness, including /cc-usage.",
+  "description": "Command Code Go provider for DeepSeek Harness TUI and Web, including /cc-usage.",
   "type": "module",
   "license": "MIT",
   "repository": {

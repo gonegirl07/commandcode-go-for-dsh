@@ -1,54 +1,71 @@
 # commandcode-go-for-dsh
 
-Use a [Command Code](https://commandcode.ai) Go plan as a model provider in [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness).
+Command Code Go as a model provider in [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness). Works on the official **Web** UI (`dsh web`) and the community **TUI** (`dsh --profile tui`).
 
-This is a port of [`commandcode-go-for-pi`](https://github.com/gonegirl07/commandcode-go-for-pi) plus [`commandcode-usage-for-pi`](https://github.com/gonegirl07/commandcode-usage-for-pi):
+Port of [`commandcode-go-for-pi`](https://github.com/gonegirl07/commandcode-go-for-pi) plus [`commandcode-usage-for-pi`](https://github.com/gonegirl07/commandcode-usage-for-pi):
 
-- Provider route `commandcode` talks to `POST https://api.commandcode.ai/alpha/generate` (the CLI envelope every plan permits).
-- Slash command `/cc-usage` shows monthly credits and the 5-hour / weekly rolling limits.
+- Route `commandcode` calls `POST https://api.commandcode.ai/alpha/generate`.
+- Host slash commands `/cc-usage` and `/ccusage` print plan credits and rolling limits.
 
-Unofficial and not affiliated with Command Code or DeepSeek. The extension uses undocumented `/alpha` routes that may change.
+Unofficial. Not affiliated with Command Code or DeepSeek. `/alpha` is undocumented and can change.
+
+Ubuntu install script and guide: [deepseek-harness-ubuntu](https://github.com/gonegirl07/deepseek-harness-ubuntu).
 
 ## Install
 
+Add the plugin to **each** profile you use. Settings and credentials are shared; plugins are not.
+
 ```console
 dsh plugin --profile tui add github:gonegirl07/commandcode-go-for-dsh
+dsh plugin --profile web add github:gonegirl07/commandcode-go-for-dsh
 ```
 
-Restart `dsh` after installing. The same add works with `--profile web` or `--profile headless`.
+Restart the app after install (`dsh --profile tui` or `dsh web`). Refresh the browser if Web was already open.
 
 ## Auth
 
-A `user_...` key from [Command Code settings](https://commandcode.ai/settings). Store it as `COMMANDCODE_API_KEY`:
+A `user_...` key from [Command Code settings](https://commandcode.ai/settings). Never commit it.
 
 ```bash
 export COMMANDCODE_API_KEY="user_..."
 ```
 
-Or write it to `~/.dsh/.credentials.yaml` (mode `600`):
+Or `~/.dsh/.credentials.yaml` (mode `600`):
 
 ```yaml
 COMMANDCODE_API_KEY: user_...
 ```
 
-Then pick **Command Code Go** in the TUI `/model` overlay and press `s` (activates the first listed model). The plugin seeds the full Command Code catalog into settings; the default useful ids are:
+## Pick a model
 
-- `deepseek/deepseek-v4-pro`
-- `deepseek/deepseek-v4-flash`
+Useful defaults: `deepseek/deepseek-v4-pro`, `deepseek/deepseek-v4-flash`.
 
-The roster also includes Kimi, GLM, MiniMax, MiMo, Qwen, Step, Tencent Hy3, Nemotron, Inkling, Laguna, Fugu, Muse Spark, plus the closed-source lanes (Claude, GPT, Gemini, Grok). Those last four often need a Pro/Max plan — a Go key may reject them.
+| Surface | How |
+| --- | --- |
+| TUI | `/model` → Command Code Go → `s` (first row is Pro) |
+| Web | Settings → Models, or the composer model picker |
+
+The plugin seeds the official Command Code catalog (DeepSeek, Kimi, GLM, MiniMax, MiMo, Qwen, Step, Hy3, Nemotron, Inkling, Laguna, Fugu, Muse Spark, plus Claude / GPT / Gemini / Grok). Closed-source ids often need Pro/Max.
+
+Optional default (no secrets):
+
+```yaml
+# ~/.dsh/settings.yaml
+agent-default-model:
+  provider: commandcode
+  model: deepseek/deepseek-v4-pro
+  reasoningEffort: high
+```
 
 ## Usage
 
-In TUI or the Web composer (`dsh web`), type:
+In the TUI prompt or the Web composer:
 
 ```
 /cc-usage
 ```
 
-`/ccusage` is the same command. It is a host slash command (not a model prompt); wait until it appears in the `/` picker after restarting `dsh web`.
-
-Example:
+`/ccusage` is the same host command (not a model prompt). It must appear in the `/` menu. If it does not, restart `dsh web` and refresh.
 
 ```
 Command Code  individual-go
@@ -58,31 +75,23 @@ Week    $1.23 / $6    reset Aug 22, 10:44
 Cycle   ends Sep 15, 2026
 ```
 
-To pre-select Pro with reasoning `high`, put this in `~/.dsh/settings.yaml`:
-
-```yaml
-agent-default-model:
-  provider: commandcode
-  model: deepseek/deepseek-v4-pro
-  reasoningEffort: high
-```
-
 ## Reasoning
 
-DeepSeek V4 Pro / Flash expose only the levels Command Code accepts:
+DeepSeek V4 Pro / Flash accept only these levels:
 
-| DSH level | Request |
+| DSH | Request |
 | --- | --- |
-| `off` | Omits `params.reasoning_effort` |
+| `off` | omit `params.reasoning_effort` |
 | `high` | `params.reasoning_effort: "high"` |
 | `max` | `params.reasoning_effort: "max"` |
 
-Unsupported levels are not forwarded.
+Other levels are not forwarded. Pro still thinks when effort is omitted.
 
 ## Remove
 
 ```console
 dsh plugin --profile tui remove commandcode-go-for-dsh
+dsh plugin --profile web remove commandcode-go-for-dsh
 ```
 
 ## Development
