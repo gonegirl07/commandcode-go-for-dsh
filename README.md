@@ -31,10 +31,12 @@ Or write it to `~/.dsh/.credentials.yaml` (mode `600`):
 COMMANDCODE_API_KEY: user_...
 ```
 
-Then pick **Command Code Go** in the model picker. Default useful models:
+Then pick **Command Code Go** in the TUI `/model` overlay and press `s` (activates the first listed model). The plugin seeds the full Command Code catalog into settings; the default useful ids are:
 
-- `deepseek/deepseek-v4-flash`
 - `deepseek/deepseek-v4-pro`
+- `deepseek/deepseek-v4-flash`
+
+The roster also includes Kimi, GLM, MiniMax, MiMo, Qwen, Step, Tencent Hy3, Nemotron, Inkling, Laguna, Fugu, Muse Spark, plus the closed-source lanes (Claude, GPT, Gemini, Grok). Those last four often need a Pro/Max plan — a Go key may reject them.
 
 ## Usage
 
@@ -50,6 +52,15 @@ Month   $8.77 / $10 left
 5-hour  $0.14 / $3    reset Aug 16, 19:15
 Week    $1.23 / $6    reset Aug 22, 10:44
 Cycle   ends Sep 15, 2026
+```
+
+To pre-select Pro with reasoning `high`, put this in `~/.dsh/settings.yaml`:
+
+```yaml
+agent-default-model:
+  provider: commandcode
+  model: deepseek/deepseek-v4-pro
+  reasoningEffort: high
 ```
 
 ## Reasoning

@@ -1,6 +1,6 @@
 {
   "name": "commandcode-go-for-dsh",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Command Code Go plan provider for DeepSeek Harness, including /cc-usage.",
   "type": "module",
   "license": "MIT",
@@ -43,6 +43,8 @@
     "@deepseek-ai/dsh-commands": ">=0.1.0-rc.6",
     "@deepseek-ai/dsh-credentials": ">=0.1.0-rc.6",
     "@deepseek-ai/dsh-launch-environment": ">=0.1.0-rc.6",
-    "@deepseek-ai/dsh-llm": ">=0.1.0-rc.6"
+    "@deepseek-ai/dsh-llm": ">=0.1.0-rc.6",
+    "@deepseek-ai/dsh-settings": ">=0.1.0-rc.6",
+    "@deepseek-ai/schemastery": "*"
   }
 }
