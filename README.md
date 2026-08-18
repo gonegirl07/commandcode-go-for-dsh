@@ -40,9 +40,13 @@ The roster also includes Kimi, GLM, MiniMax, MiMo, Qwen, Step, Tencent Hy3, Nemo
 
 ## Usage
 
+In TUI or the Web composer (`dsh web`), type:
+
 ```
 /cc-usage
 ```
+
+`/ccusage` is the same command. It is a host slash command (not a model prompt); wait until it appears in the `/` picker after restarting `dsh web`.
 
 Example:
 

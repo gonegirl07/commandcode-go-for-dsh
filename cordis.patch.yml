@@ -3,4 +3,4 @@
 - insert:
     - id: llm-commandcode
       name: commandcode-go-for-dsh
-      inject: [llm]
+      inject: [llm, commands]
